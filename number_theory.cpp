@@ -50,10 +50,48 @@ vector<pair<T,T>> linear_diophantine_equation(T a,T b,T k,T times)
 
 
 //-------------------  Euer totient Function            -------------------------------------
+//-------------------          END                      -------------------------------------
 
 
+//-------------------   Finding all factors in logn for queries using seive  ---------------------------
 
+template<typename T>
+void createFactorBase(T *a,T n)
+{
+    for(int i=0;i<n;i++)
+    {
+        a[i]=i;
+    }
 
+    for(int i=2;i*i<n;i++)
+    {
+        if(a[i]==i)
+        {
+            for(int j=2*i;j<n;j+=i)
+            {
+                if(a[j]==j)
+                {
+                    a[j]=i;
+                }
+            }
+        }
+    }
+}
+
+template<typename T>
+vector<T> findAllFactors(T a[],T k)
+{
+    vector<T>v;
+    while(k>1)
+    {
+        v.push_back(a[k]);
+        k=k/a[k];
+    }
+
+    return v;
+}
+
+//------------------                     END                    ---------------------------
 
 int main()
 {
