@@ -16,10 +16,57 @@ using namespace std;
             3) If the previous node value is Infinity or INT_MAX then don't update otherwise update it.
             Note. (Works like BFS on each iteration the i distance node is reachble in minimum time from
             source node)
+
+    Ques    Can we use Bellman Ford for finding the negative weight cycle in a graph?
+    Ans     Yes, we can find negative weight cycle in graph by using vth iteration 
+            because if any node is updated in vth cycle means there is a negative weight
+            cycle
 */
+
+vector<long int>dp;
+
+void BellmanFord(int verticesCnt,int edgesCnt,vector<pair<int,pair<int,int>>>allEdges)
+{
+    for(int i=0;i<verticesCnt-1;i++)
+    {
+        for(int j=0;j<edgesCnt;j++)
+        {
+            int u = allEdges[j].first,v=allEdges[j].second.first,wt=allEdges[j].second.second;
+            if(dp[u]!=INT_MAX and dp[u]+wt<dp[v])
+            {
+                dp[v]=dp[u]+wt;
+            }
+
+        }
+    }
+}
 
 
 int main()
 {
-    cout<<"hello";
+    int n,m;
+    cin>>n>>m;
+    dp.resize(n,INT_MAX);
+    vector<pair<int,pair<int,int>>>vec;
+    int u,v,wt;
+    for(int i=0;i<m;i++)
+    {
+        cin >> u >> v >> wt;
+        vec.push_back({u-1,{v-1,wt}});
+    }
+
+    int source=1;
+    source-=1;
+    dp[source]=0;
+    BellmanFord(n,m,vec);
+    for(int i=1;i<n;i++)
+    {
+        if(dp[i]!=INT_MAX)
+        {
+            cout<<dp[i]<<" ";
+        }
+        else{
+            cout<<"1000000000 ";
+        }
+    }
 }
