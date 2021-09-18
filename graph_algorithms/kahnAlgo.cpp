@@ -84,6 +84,11 @@ int main()
 
     kahnAlg(n);
 
+    if(ansarr.size()==0)
+    {
+        cout<<-1;
+        return 0;
+    }
     for(int i:ansarr)
     {
         cout<<i<<" ";
